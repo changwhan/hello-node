@@ -7,6 +7,8 @@ const app = express();
 // 환경변수에 PORT가 있으면 쓰고, 없으면 3000을 씁니다.
 const port = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
+// Express에게 "모든 정적 파일은 public 폴더에서 찾아라"고 알려줘야 합니다.
+app.use(express.static('public'));
 
 // 사용자가 루트 경로('/')로 접속했을 때 실행될 로직
 app.get('/', (req, res) => {
@@ -37,6 +39,10 @@ app.get('/hello', (req, res) => {
   } else {
     res.send('<h1>이름을 입력해 주세요!</h1><a href="/">뒤로 가기</a>');
   }
+});
+
+app.get('/api/status', (req, res) => {
+  res.json({ platform: os.platform(), nodeVersion: process.version });
 });
 
 app.post('/age', (req, res) => {
