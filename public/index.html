@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>창환님의 첫 웹 앱</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+
+    <header class="nav-bar">
+      <span class="nav-title" id="page-title">홈</span>
+    </header>
+
+    <main class="content">
+
+      <!-- 탭 1: 홈 -->
+      <section class="tab-panel active" id="tab-home">
+        <div class="card">
+          <p class="card-label">서버 상태</p>
+          <div id="status-content">
+            <div class="skeleton"></div>
+            <div class="skeleton short"></div>
+          </div>
+        </div>
+        <div class="card">
+          <p class="card-label">기능 안내</p>
+          <p class="body-text">하단 탭을 눌러 기능을 사용해보세요.</p>
+          <div class="feature-list">
+            <div class="feature-item">
+              <span class="feature-icon">👋</span>
+              <span>이름을 입력하면 인사해줘요</span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">🎂</span>
+              <span>나이를 입력하면 내년 나이를 알려줘요</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 탭 2: 인사 -->
+      <section class="tab-panel" id="tab-hello">
+        <div class="card">
+          <p class="card-label">이름 인사 (GET)</p>
+          <div class="form-group">
+            <input class="ios-input" type="text" id="helloName" placeholder="이름을 입력하세요" autocomplete="off">
+          </div>
+          <button class="ios-btn primary" onclick="sayHello()">인사하기</button>
+        </div>
+        <div class="result-card" id="hello-result" hidden>
+          <span class="result-emoji">👋</span>
+          <p class="result-text" id="hello-result-text"></p>
+        </div>
+      </section>
+
+      <!-- 탭 3: 나이 -->
+      <section class="tab-panel" id="tab-age">
+        <div class="card">
+          <p class="card-label">내년 나이 계산 (POST)</p>
+          <div class="form-group">
+            <input class="ios-input" type="text" id="ageName" placeholder="이름을 입력하세요" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <input class="ios-input" type="number" id="ageInput" placeholder="나이를 입력하세요" min="1" max="150">
+          </div>
+          <button class="ios-btn primary" onclick="calcAge()">계산하기</button>
+        </div>
+        <div class="result-card" id="age-result" hidden>
+          <span class="result-emoji">🎂</span>
+          <p class="result-text" id="age-result-text"></p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 하단 내비게이션 바 -->
+    <nav class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('home', this)">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <span class="tab-label">홈</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('hello', this)">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <span class="tab-label">인사</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('age', this)">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <span class="tab-label">나이</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
