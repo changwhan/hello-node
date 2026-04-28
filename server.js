@@ -1,21 +1,29 @@
-// const express = require('express');
 import express from 'express';
+import path from 'path';
 import os from 'os';
+import { fileURLToPath } from 'url'; // ESM에서 경로를 다루기 위해 필요
 
 const app = express();
-// const port = 3000;
+
+// ESM에서는 __dirname이 기본 제공되지 않으므로 아래와 같이 정의해야 합니다.
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // 환경변수에 PORT가 있으면 쓰고, 없으면 3000을 씁니다.
 const port = process.env.PORT || 3000;
-app.use(express.urlencoded({ extended: true }));
-// Express에게 "모든 정적 파일은 public 폴더에서 찾아라"고 알려줘야 합니다.
-app.use(express.static('public'));
 
-const path = require('path'); // 파일 경로 계산을 위해 상단에 추가
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-  // res.send(`...`) 대신 파일을 보냅니다.
+  // 이제 안전하게 __dirname을 사용하여 파일을 보낼 수 있습니다.
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
+// 기존의 인사/나이 계산 로직들...
+
+// Vercel을 위한 내보내기 (ESM 방식)
+
 // 사용자가 루트 경로('/')로 접속했을 때 실행될 로직
 //  app.get('/', (req, res) => {
 //    res.send(`
