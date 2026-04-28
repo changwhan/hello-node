@@ -10,25 +10,31 @@ app.use(express.urlencoded({ extended: true }));
 // Express에게 "모든 정적 파일은 public 폴더에서 찾아라"고 알려줘야 합니다.
 app.use(express.static('public'));
 
-// 사용자가 루트 경로('/')로 접속했을 때 실행될 로직
+const path = require('path'); // 파일 경로 계산을 위해 상단에 추가
+
 app.get('/', (req, res) => {
-  res.send(`
-    <h1>데이터 주고받기 연습</h1>
-
-    <h2>GET 방식 - 이름 인사</h2>
-    <form action="/hello" method="GET">
-      <input type="text" name="userName" placeholder="이름을 입력하세요">
-      <button type="submit">인사하기</button>
-    </form>
-
-    <h2>POST 방식 - 내년 나이 계산</h2>
-    <form action="/age" method="POST">
-      <input type="text" name="userName" placeholder="이름을 입력하세요">
-      <input type="number" name="userAge" placeholder="나이를 입력하세요" min="1">
-      <button type="submit">계산하기</button>
-    </form>
-  `);
+  // res.send(`...`) 대신 파일을 보냅니다.
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+// 사용자가 루트 경로('/')로 접속했을 때 실행될 로직
+//  app.get('/', (req, res) => {
+//    res.send(`
+//      <h1>데이터 주고받기 연습</h1>
+//
+//      <h2>GET 방식 - 이름 인사</h2>
+//      <form action="/hello" method="GET">
+//        <input type="text" name="userName" placeholder="이름을 입력하세요">
+//        <button type="submit">인사하기</button>
+//      </form>
+//
+//      <h2>POST 방식 - 내년 나이 계산</h2>
+//      <form action="/age" method="POST">
+//        <input type="text" name="userName" placeholder="이름을 입력하세요">
+//        <input type="number" name="userAge" placeholder="나이를 입력하세요" min="1">
+//        <button type="submit">계산하기</button>
+//      </form>
+//    `);
+//  });
 
 app.get('/hello', (req, res) => {
   // 주소창의 쿼리 스트링(?userName=창환)에서 값을 추출합니다.
